@@ -16,5 +16,9 @@ module SoireeGageure2017
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.autoload_paths << Rails.root.join('components', 'registration_process', 'app', 'models')
+    config.autoload_paths << Rails.root.join('components', 'registration_process', 'app', 'controllers')
+    config.autoload_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'controllers')
+    config.autoload_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'models')
   end
 end
