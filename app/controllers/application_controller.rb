@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_locale
 
+  prepend_view_path Rails.root.join('components', 'registration_process', 'app', 'views')
+  prepend_view_path Rails.root.join('components', 'draw_bookkeeping', 'app', 'views')
+
   private
 
   def set_locale
