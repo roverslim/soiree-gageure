@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'rails_helper'
-include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe(TicketDrawsController, type: :controller) do
   render_views

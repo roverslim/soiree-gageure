@@ -4,7 +4,7 @@ AllCops:
     - 'db/schema.rb'
     - 'vendor/**/*'
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: 'variable'
 Layout/CaseIndentation:
   EnforcedStyle: 'end'
@@ -30,11 +30,21 @@ Metrics/LineLength:
     - '\A\s+(it|expect|context)(\(?|\s?)' # rspec 'it(', 'it ', 'expect(', 'expect ', 'context(' and 'context '
 Metrics/MethodLength:
   Enabled: false
+Naming/VariableNumber:
+  EnforcedStyle: 'snake_case'
+Rails/BulkChangeTable:
+  Enabled: false
+Rails/CreateTableWithTimestamps:
+  Enabled: false
 Rails/Date:
   EnforcedStyle: 'strict'
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
 Style/Documentation:
+  Enabled: false
+Style/FormatStringToken:
   Enabled: false
 Style/ModuleFunction:
   Enabled: false
@@ -48,7 +58,7 @@ Style/RaiseArgs:
   EnforcedStyle: 'exploded'
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: 'comma'
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: 'comma'
-Style/VariableNumber:
-  EnforcedStyle: 'snake_case'
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: 'comma'

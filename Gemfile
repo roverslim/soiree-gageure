@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.5.1'
 
 gem 'active_model_serializers'
 gem 'axlsx_rails'
@@ -14,7 +14,7 @@ gem 'wicked_pdf'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'pg'
-gem 'rails', '~> 5.1.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.2.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -56,6 +56,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)

@@ -13,7 +13,7 @@ class TicketDropOffsController < ApplicationController
     return head(:no_content) if @lottery.locked?
 
     @ticket = @lottery.droppable_tickets.find(params[:id])
-    @ticket.update_attributes(dropped_off: true)
+    @ticket.update(dropped_off: true)
     redirect_to(lottery_ticket_drop_offs_path(@lottery))
   end
 end
