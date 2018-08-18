@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 wb = xlsx_package.workbook
 wb.add_worksheet(name: t('drawn_tickets.index.title')) do |sheet|
   sheet.add_row [
