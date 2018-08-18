@@ -19,7 +19,7 @@ class SponsorListing
   end
 
   def each
-    sponsors = Sponsor.order('LOWER(full_name) ASC')
+    sponsors = Sponsor.order(Arel.sql('LOWER(full_name) ASC'))
     sponsors.each_with_index do |sponsor, index|
       row_number = index + 1
       yield SponsorRow.new(sponsor: sponsor, row_number: row_number)

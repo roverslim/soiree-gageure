@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
+require_dependency 'last_drawn_ticket' # Prevents a circular dependency error
 
 RSpec.describe(ResultsController, type: :controller) do
   render_views

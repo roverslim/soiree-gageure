@@ -19,7 +19,7 @@ class SellersListing
   end
 
   def each
-    sellers = Seller.order('LOWER(full_name) ASC')
+    sellers = Seller.order(Arel.sql('LOWER(full_name) ASC'))
     sellers.each_with_index do |seller, index|
       row_number = index + 1
       yield SellerRow.new(seller: seller, row_number: row_number)

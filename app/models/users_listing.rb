@@ -19,7 +19,7 @@ class UsersListing
   end
 
   def each
-    users = User.order('LOWER(email) ASC')
+    users = User.order(Arel.sql('LOWER(email) ASC'))
     users.each_with_index do |user, index|
       row_number = index + 1
       yield UserRow.new(user: user, row_number: row_number)
