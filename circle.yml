@@ -1,7 +1,0 @@
-test:
-  override:
-    - bundle exec rspec
-    - bundle exec rspec components/draw_bookkeeping/spec
-    - bundle exec rspec components/registration_process/spec
-  post:
-    - bundle exec rubocop -R

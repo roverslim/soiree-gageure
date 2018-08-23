@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.1
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: soiree_gageure_2017
+      - image: circleci/postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: soiree_gageure_2017
+          POSTGRES_DB: soiree_gageure_2017_test
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle install
+      - run:
+          name: Database setup
+          command: bundle exec rails db:setup
+      - run:
+          name: rspec
+          command: |
+            bundle exec rspec
+            bundle exec rspec components/draw_bookkeeping/spec
+            bundle exec rspec components/registration_process/spec
+      - run:
+          name: rubocop
+          command: bundle exec rubocop -R

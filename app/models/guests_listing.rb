@@ -19,7 +19,7 @@ class GuestsListing
   end
 
   def each
-    guests = Guest.order('LOWER(full_name) ASC')
+    guests = Guest.order(Arel.sql('LOWER(full_name) ASC'))
     guests.each_with_index do |guest, index|
       row_number = index + 1
       yield GuestRow.new(guest: guest, row_number: row_number)
