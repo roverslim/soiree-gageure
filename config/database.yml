@@ -1,6 +1,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: db
+  username: soiree_gageure_2017
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -18,5 +20,4 @@ test:
 production:
   <<: *default
   database: soiree_gageure_2017_production
-  username: soiree_gageure_2017
   password: <%= ENV['SOIREE_GAGEURE_2017_DATABASE_PASSWORD'] %>
