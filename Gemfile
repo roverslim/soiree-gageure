@@ -4,6 +4,7 @@ ruby '2.5.1'
 
 gem 'active_model_serializers'
 gem 'axlsx_rails'
+gem 'decent_exposure'
 gem 'devise'
 gem 'memoist'
 gem 'prawn'
