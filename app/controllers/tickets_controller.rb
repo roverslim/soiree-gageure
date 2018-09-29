@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 class TicketsController < ApplicationController
-  include LotteryLookup
+  expose :lottery, id: :lottery_id
+  expose :tickets, -> { lottery.tickets }
+  expose :ticket, scope: -> { lottery.tickets }
+
+  before_action :assign_lottery_instance_var
 
   def index
     @ticket_listing = TicketListing.new(
-      ticket_scope: @lottery.tickets,
+      ticket_scope: tickets,
       number_filter: params[:number_filter],
     )
 
@@ -15,29 +19,29 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = @lottery.tickets.new
+    @ticket = ticket
   end
 
   def create
-    builder = TicketBuilder.new(lottery: @lottery)
+    builder = TicketBuilder.new(lottery: lottery)
     @ticket = builder.build(builder_params)
 
-    return(render(:new)) if @ticket.errors.any?
+    return render(:new) if @ticket.errors.any?
     @ticket.save!
-    redirect_to(lottery_tickets_path(@lottery))
+    redirect_to(lottery_tickets_path(lottery))
   end
 
   def edit
-    @ticket = @lottery.tickets.find(params[:id])
+    @ticket = ticket
   end
 
   def update
-    @builder = TicketBuilder.new(lottery: @lottery)
+    @builder = TicketBuilder.new(lottery: lottery)
     @ticket = @builder.build(builder_params.merge(id: params[:id]))
 
-    return(render(:edit)) if @ticket.errors.any?
+    return render(:edit) if @ticket.errors.any?
     @ticket.save!
-    redirect_to(lottery_tickets_path(@lottery))
+    redirect_to(lottery_tickets_path(lottery))
   end
 
   private
@@ -61,5 +65,9 @@ class TicketsController < ApplicationController
   def render_xlsx
     filename = format('%s.xlsx', Ticket.model_name.human.pluralize.downcase)
     render xlsx: 'ticket_listing', filename: filename
+  end
+
+  def assign_lottery_instance_var
+    @lottery = lottery
   end
 end
