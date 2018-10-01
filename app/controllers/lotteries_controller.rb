@@ -1,22 +1,27 @@
 # frozen_string_literal: true
-
 class LotteriesController < ApplicationController
+  expose :lotteries, -> { Lottery.order(event_date: :desc) }
+  expose :lottery
+
   def index
-    @lotteries = Lottery.order(event_date: :desc)
+    @lotteries = lotteries
   end
 
   def new
-    @lottery = Lottery.new
+    @lottery = lottery
   end
 
   def create
-    @lottery = Lottery.new(lottery_params)
-    return(redirect_to(lotteries_path)) if @lottery.save
+    @lottery = lottery
+
+    return redirect_to(lotteries_path) if lottery.save
     render(:new)
   end
 
+  # TODO: move #show to TicketCountersController
   def show
-    find_lottery
+    @lottery = lottery
+
     @total_num_tickets = @lottery.tickets.count
     @num_unregistered_tickets = @lottery.tickets.where(registered: false).count
     @num_tickets_in_circulation = @lottery.tickets.where(registered: true, dropped_off: false).count
@@ -25,20 +30,17 @@ class LotteriesController < ApplicationController
   end
 
   def edit
-    find_lottery
+    @lottery = lottery
   end
 
   def update
-    find_lottery
-    return(redirect_to(lotteries_path)) if @lottery.update(lottery_params)
+    @lottery = lottery
+
+    return redirect_to(lotteries_path) if lottery.update(lottery_params)
     render(:edit)
   end
 
   private
-
-  def find_lottery
-    @lottery = Lottery.find(params[:id])
-  end
 
   def lottery_params
     params.require(:lottery)
