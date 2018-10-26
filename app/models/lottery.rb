@@ -22,9 +22,17 @@ class Lottery < ApplicationRecord
     )
   end
 
+  def tickets_count
+    tickets.count
+  end
+
   def registerable_tickets
     tickets.where(registered: false)
       .where.not(state: 'reserved')
+  end
+
+  def registerable_tickets_count
+    registerable_tickets.count
   end
 
   def printable_tickets
@@ -41,6 +49,10 @@ class Lottery < ApplicationRecord
     )
   end
 
+  def droppable_tickets_count
+    droppable_tickets.count
+  end
+
   def drawable_tickets
     tickets.where(
       dropped_off: true,
@@ -48,8 +60,16 @@ class Lottery < ApplicationRecord
     )
   end
 
+  def drawable_tickets_count
+    drawable_tickets.count
+  end
+
   def drawn_tickets
     tickets.where.not(drawn_position: nil)
+  end
+
+  def drawn_tickets_count
+    drawn_tickets.count
   end
 
   def last_drawn_ticket

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources(:lotteries, only: %i(index new create edit show update)) do
         actions.resources(:prizes)
         actions.resources(:tickets)
+        resources(:counters, only: :show, module: :counters, param: :name)
         resources(:tables, only: %i(index new create edit show update))
         resources(:ticket_registrations, only: %i(index edit update))
         resources(:ticket_impressions, only: %i(index show))
