@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602214354) do
+ActiveRecord::Schema.define(version: 2017_06_02_214354) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "plpgsql"
 
   create_table "guests", id: :serial, force: :cascade do |t|
     t.string "full_name", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170602214354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "locked", default: false, null: false
-    t.index ["event_date"], name: "index_lotteries_on_event_date", order: { event_date: :desc }
+    t.index ["event_date"], name: "index_lotteries_on_event_date", order: :desc
     t.index ["locked"], name: "index_lotteries_on_locked"
   end
 
