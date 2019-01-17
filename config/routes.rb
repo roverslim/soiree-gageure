@@ -36,4 +36,5 @@ Rails.application.routes.draw do
   end
 
   mount(ActionCable.server => '/cable')
+  root 'lotteries#index', defaults: { locale: 'fr' }
 end
