@@ -137,6 +137,7 @@ fr:
       ticket/state:
         reserved: 'Réservé'
         authorized: 'Authorisé'
+        invoiced: 'Facturé'
         paid: 'Payé'
       ticket/ticket_type:
         meal_and_lottery: 'Souper et tirage'

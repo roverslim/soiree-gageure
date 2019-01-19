@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Ticket < ApplicationRecord
-  STATES = %w(reserved authorized paid).freeze
+  STATES = %w(reserved authorized invoiced paid).freeze
   TICKET_TYPES = %w(meal_and_lottery lottery_only).freeze
 
   belongs_to :lottery

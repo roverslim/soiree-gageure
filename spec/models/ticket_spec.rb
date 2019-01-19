@@ -31,7 +31,7 @@ RSpec.describe(Ticket, type: :model) do
 
   describe('::STATES') do
     it('defines a list of allowed states') do
-      expect(Ticket::STATES).to eq(%w(reserved authorized paid))
+      expect(Ticket::STATES).to eq(%w(reserved authorized invoiced paid))
     end
 
     it('returns a frozen array of frozen strings') do

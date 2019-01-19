@@ -39,6 +39,7 @@ RSpec.describe(TicketsHelper, type: :helper) do
           [
             %w(Reserved reserved),
             %w(Authorized authorized),
+            %w(Invoiced invoiced),
             %w(Paid paid),
           ],
         )
@@ -51,6 +52,7 @@ RSpec.describe(TicketsHelper, type: :helper) do
           [
             %w(Réservé reserved),
             %w(Authorisé authorized),
+            %w(Facturé invoiced),
             %w(Payé paid),
           ],
         )
