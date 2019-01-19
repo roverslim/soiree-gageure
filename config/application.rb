@@ -20,5 +20,11 @@ module SoireeGageure2017
     config.autoload_paths << Rails.root.join('components', 'registration_process', 'app', 'controllers')
     config.autoload_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'controllers')
     config.autoload_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'models')
+
+    # Custom paths, eager loaded in production
+    config.eager_load_paths << Rails.root.join('components', 'registration_process', 'app', 'models')
+    config.eager_load_paths << Rails.root.join('components', 'registration_process', 'app', 'controllers')
+    config.eager_load_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'controllers')
+    config.eager_load_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'models')
   end
 end
