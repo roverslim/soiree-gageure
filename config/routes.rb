@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get('sponsor_names', to: 'sponsors#index')
   end
 
-  scope(':locale') do
+  scope(':locale', locale: /en|fr/) do
     devise_for(:users)
 
     with_options(
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
     resources(:lock_lotteries, only: :update)
 
-    root 'lotteries#index'
+    get '/' => 'lotteries#index'
   end
 
   mount(ActionCable.server => '/cable')
