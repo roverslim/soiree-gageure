@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  with_options(defaults: { format: :json }) do
-    get('seller_names', to: 'sellers#index')
-    get('guest_names', to: 'guests#index')
-    get('sponsor_names', to: 'sponsors#index')
+  scope('/:locale', locale: /en|fr/) do
+    devise_for(:users)
   end
 
-  scope(':locale', locale: /en|fr/) do
-    devise_for(:users)
-
+  scope('(/:locale)', locale: /en|fr/) do
     with_options(
       only: %i(index new create edit update),
     ) do |actions|
@@ -32,9 +28,15 @@ Rails.application.routes.draw do
     end
     resources(:lock_lotteries, only: :update)
 
-    get '/' => 'lotteries#index'
+    with_options(defaults: { format: :json }) do
+      get('seller_names', to: 'sellers#index')
+      get('guest_names', to: 'guests#index')
+      get('sponsor_names', to: 'sponsors#index')
+    end
   end
 
+  get '/:locale' => 'lotteries#index', locale: /en|fr/
+  root 'lotteries#index'
+
   mount(ActionCable.server => '/cable')
-  root 'lotteries#index', defaults: { locale: 'fr' }
 end

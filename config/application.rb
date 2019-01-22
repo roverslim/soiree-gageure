@@ -26,5 +26,7 @@ module SoireeGageure2017
     config.eager_load_paths << Rails.root.join('components', 'registration_process', 'app', 'controllers')
     config.eager_load_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'controllers')
     config.eager_load_paths << Rails.root.join('components', 'draw_bookkeeping', 'app', 'models')
+
+    config.i18n.default_locale = :fr
   end
 end
