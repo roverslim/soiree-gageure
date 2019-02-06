@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/roverslim/soiree-gageure.svg?style=svg)](https://circleci.com/gh/roverslim/soiree-gageure)
+[![CircleCI](https://circleci.com/gh/roverslim/soiree-gageure.svg?style=svg&circle-token=9f7a0f8200d837a4ec4bfb9ada4447f0a3ff4566)](https://circleci.com/gh/roverslim/soiree-gageure)
 
 # Contribution guidelines on code architecture
 
