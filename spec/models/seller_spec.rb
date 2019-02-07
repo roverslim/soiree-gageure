@@ -23,7 +23,16 @@ RSpec.describe(Seller, type: :model) do
     it('requires :full_name to be present') do
       new_seller = Seller.new
       expect(new_seller).not_to be_valid
-      expect(new_seller.errors[:full_name]).to include("can't be blank")
+
+      with_locale(:en) do
+        new_seller.valid?
+        expect(new_seller.errors[:full_name]).to include("can't be blank")
+      end
+
+      with_locale(:fr) do
+        new_seller.valid?
+        expect(new_seller.errors[:full_name]).to include('ne peut pas être vide')
+      end
     end
   end
 end
