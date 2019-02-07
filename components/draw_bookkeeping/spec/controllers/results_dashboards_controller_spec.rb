@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(ResultsDashboardsController, type: :controller) do
-  include I18nSpecHelper
   render_views
 
   let(:lottery) do
@@ -105,15 +104,21 @@ RSpec.describe(ResultsDashboardsController, type: :controller) do
           expect(response).to render_template('results_dashboards/_index_header')
         end
 
-        it('assigns @title when I18n.locale == :en') do
-          get_index
-          expect(assigns(:title)).to eq('Results dashboard (ordered by drawn position)')
+        context('when locale=en') do
+          it('assigns @title') do
+            with_locale(:en) do
+              get_index
+              expect(assigns(:title)).to eq('Results dashboard (ordered by drawn position)')
+            end
+          end
         end
 
-        it('assigns @title when I18n.locale == :fr') do
-          with_locale(:fr) do
-            get_index
-            expect(assigns(:title)).to eq('Tableau des résultats (par ordre de pige)')
+        context('when locale=fr') do
+          it('assigns @title') do
+            with_locale(:fr) do
+              get_index
+              expect(assigns(:title)).to eq('Tableau des résultats (par ordre de pige)')
+            end
           end
         end
       end
@@ -160,15 +165,21 @@ RSpec.describe(ResultsDashboardsController, type: :controller) do
           expect(response).to render_template('results_dashboards/_index_header')
         end
 
-        it('assigns @title when I18n.locale == :en') do
-          get_index
-          expect(assigns(:title)).to eq('Results dashboard (ordered by ticket number)')
+        context('when locale=en') do
+          it('assigns @title') do
+            with_locale(:en) do
+              get_index
+              expect(assigns(:title)).to eq('Results dashboard (ordered by ticket number)')
+            end
+          end
         end
 
-        it('assigns @title when I18n.locale == :fr') do
-          with_locale(:fr) do
-            get_index
-            expect(assigns(:title)).to eq('Tableau des résultats (par numéro de billet)')
+        context('when locale=fr') do
+          it('assigns @title') do
+            with_locale(:fr) do
+              get_index
+              expect(assigns(:title)).to eq('Tableau des résultats (par numéro de billet)')
+            end
           end
         end
       end
@@ -208,15 +219,21 @@ RSpec.describe(ResultsDashboardsController, type: :controller) do
           expect(response).to render_template('results_dashboards/_index_header')
         end
 
-        it('assigns @title when I18n.locale == :en') do
-          get_index
-          expect(assigns(:title)).to eq('Results dashboard (ordered by drawn position)')
+        context('when locale=en') do
+          it('assigns @title') do
+            with_locale(:en) do
+              get_index
+              expect(assigns(:title)).to eq('Results dashboard (ordered by drawn position)')
+            end
+          end
         end
 
-        it('assigns @title when I18n.locale == :fr') do
-          with_locale(:fr) do
-            get_index
-            expect(assigns(:title)).to eq('Tableau des résultats (par ordre de pige)')
+        context('when locale=fr') do
+          it('assigns @title') do
+            with_locale(:fr) do
+              get_index
+              expect(assigns(:title)).to eq('Tableau des résultats (par ordre de pige)')
+            end
           end
         end
       end
