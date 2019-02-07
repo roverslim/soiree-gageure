@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(Ticket, type: :model) do
-  include I18nSpecHelper
 
   let(:lottery) do
     Lottery.create!(event_date: Time.zone.today)
@@ -341,25 +340,61 @@ RSpec.describe(Ticket, type: :model) do
     it('requires a lottery') do
       new_ticket = Ticket.new
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:lottery]).to include('must exist')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:lottery]).to include('must exist')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:lottery]).to include('doit être spécifié')
+      end
     end
 
     it('requires :number to be a number') do
       new_ticket = Ticket.new
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:number]).to include('is not a number')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('is not a number')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('doit être un chiffre')
+      end
     end
 
     it('requires :number to be an integer') do
       new_ticket = Ticket.new(number: 3.3)
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:number]).to include('must be an integer')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('must be an integer')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('doit être un nombre entier')
+      end
     end
 
     it('requires :number to be greater than 0') do
       new_ticket = Ticket.new(number: 0)
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:number]).to include('must be greater than 0')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('must be greater than 0')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('doit être supérieur à 0')
+      end
     end
 
     it('requires :number to be unique per lottery') do
@@ -368,19 +403,46 @@ RSpec.describe(Ticket, type: :model) do
         number: ticket.number,
       )
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:number]).to include('has already been taken')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('has already been taken')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:number]).to include('a déjà été assigné')
+      end
     end
 
     it('requires :state to be present') do
       new_ticket = Ticket.new
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:state]).to include('is not included in the list')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:state]).to include('is not included in the list')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:state]).to include("n'est pas valide")
+      end
     end
 
     it('requires :ticket_type to be present') do
       new_ticket = Ticket.new
       expect(new_ticket).not_to be_valid
-      expect(new_ticket.errors[:ticket_type]).to include('is not included in the list')
+
+      with_locale(:en) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:ticket_type]).to include('is not included in the list')
+      end
+
+      with_locale(:fr) do
+        new_ticket.valid?
+        expect(new_ticket.errors[:ticket_type]).to include("n'est pas valide")
+      end
     end
   end
 
