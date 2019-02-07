@@ -92,10 +92,19 @@ RSpec.describe(TicketBuilder, type: :model) do
         end
 
         it('adds an error to ticket#errors when :table_number corresponds to a table that does not belong to the lottery') do
-          ticket = ticket_builder.build(
-            @attributes.merge(table_number: table_from_different_lottery.number),
-          )
-          expect(ticket.errors[:base]).to eq(['Ticket number is invalid'])
+          with_locale(:en) do
+            ticket = ticket_builder.build(
+              @attributes.merge(table_number: table_from_different_lottery.number),
+            )
+            expect(ticket.errors[:base]).to eq(['Ticket number is invalid'])
+          end
+
+          with_locale(:fr) do
+            ticket = ticket_builder.build(
+              @attributes.merge(table_number: table_from_different_lottery.number),
+            )
+            expect(ticket.errors[:base]).to eq(["Le numéro de table n'est pas valide"])
+          end
         end
 
         it('assigns ticket#table when :table_number corresponds to a different table that belongs to the lottery') do
