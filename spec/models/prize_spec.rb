@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(Prize, type: :model) do
-  include I18nSpecHelper
-
   let(:lottery) do
     Lottery.create!(event_date: Time.zone.today)
   end
@@ -115,53 +113,46 @@ RSpec.describe(Prize, type: :model) do
       expect(new_prize.errors[:nth_before_last]).to be_empty
     end
 
-    context('locale is :en') do
-      it('sets an error message when :nth_before_last is a negative value') do
-        new_prize = Prize.new(nth_before_last: -1)
+    it('sets an error message when :nth_before_last is a negative value') do
+      new_prize = Prize.new(nth_before_last: -1)
+
+      with_locale(:en) do
         new_prize.valid?
         expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Nth before last must be greater than or equal to 0'])
       end
 
-      it('sets an error message when :nth_before_last is not an integer') do
-        new_prize = Prize.new(nth_before_last: 0.123)
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Le n-ième avant dernier doit être au minimum 0'])
+      end
+    end
+
+    it('sets an error message when :nth_before_last is not an integer') do
+      new_prize = Prize.new(nth_before_last: 0.123)
+
+      with_locale(:en) do
         new_prize.valid?
         expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Nth before last must be an integer'])
       end
 
-      it('sets an error message when the value has already been taken for the same lottery') do
-        new_prize = Prize.new(
-          lottery: lottery,
-          nth_before_last: prize.nth_before_last,
-        )
-        new_prize.valid?
-        expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Nth before last has already been taken'])
-      end
-    end
-
-    context('locale is :fr') do
-      around(:each) do |example|
-        with_locale(:fr) do
-          example.run
-        end
-      end
-
-      it('sets an error message when :nth_before_last is a negative value') do
-        new_prize = Prize.new(nth_before_last: -1)
-        new_prize.valid?
-        expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Le n-ième avant dernier doit être au minimum 0'])
-      end
-
-      it('sets an error message when :nth_before_last is not an integer') do
-        new_prize = Prize.new(nth_before_last: 0.123)
+      with_locale(:fr) do
         new_prize.valid?
         expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Le n-ième avant dernier doit être un nombre entier'])
       end
+    end
 
-      it('sets an error message when the value has already been taken for the same lottery') do
-        new_prize = Prize.new(
-          lottery: lottery,
-          nth_before_last: prize.nth_before_last,
-        )
+    it('sets an error message when the value has already been taken for the same lottery') do
+      new_prize = Prize.new(
+        lottery: lottery,
+        nth_before_last: prize.nth_before_last,
+      )
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Nth before last has already been taken'])
+      end
+
+      with_locale(:fr) do
         new_prize.valid?
         expect(new_prize.errors.full_messages_for(:nth_before_last)).to eq(['Le n-ième avant dernier a déjà été assigné'])
       end
@@ -172,25 +163,61 @@ RSpec.describe(Prize, type: :model) do
     it('requires a lottery') do
       new_prize = Prize.new
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:lottery]).to include('must exist')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:lottery]).to include('must exist')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:lottery]).to include('doit être spécifié')
+      end
     end
 
     it('requires :draw_order to be a number') do
       new_prize = Prize.new
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:draw_order]).to include('is not a number')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('is not a number')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('doit être un chiffre')
+      end
     end
 
     it('requires :draw_order to be an integer') do
       new_prize = Prize.new(draw_order: 3.3)
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:draw_order]).to include('must be an integer')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('must be an integer')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('doit être un nombre entier')
+      end
     end
 
     it('requires :draw_order to be greater than 0') do
       new_prize = Prize.new(draw_order: 0)
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:draw_order]).to include('must be greater than 0')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('must be greater than 0')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('doit être supérieur à 0')
+      end
     end
 
     it('requires :draw_number to be unique per lottery') do
@@ -200,25 +227,61 @@ RSpec.describe(Prize, type: :model) do
         amount: 100,
       )
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:draw_order]).to include('has already been taken')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('has already been taken')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:draw_order]).to include('a déjà été assigné')
+      end
     end
 
     it('requires :amount to be a number') do
       new_prize = Prize.new
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:amount]).to include('is not a number')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('is not a number')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('doit être un chiffre')
+      end
     end
 
     it('requires :amount to be greater than 0') do
       new_prize = Prize.new(amount: 0)
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:amount]).to include('must be greater than 0')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('must be greater than 0')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('doit être supérieur à 0')
+      end
     end
 
     it('requires :amount to be less than 10_000') do
       new_prize = Prize.new(amount: 10_000)
       expect(new_prize).not_to be_valid
-      expect(new_prize.errors[:amount]).to include('must be less than 10000')
+
+      with_locale(:en) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('must be less than 10000')
+      end
+
+      with_locale(:fr) do
+        new_prize.valid?
+        expect(new_prize.errors[:amount]).to include('doit être moindre que 10000')
+      end
     end
   end
 
