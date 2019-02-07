@@ -45,25 +45,61 @@ RSpec.describe(Table, type: :model) do
     it('requires a lottery') do
       new_table = Table.new
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:lottery]).to include('must exist')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:lottery]).to include('must exist')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:lottery]).to include('doit être spécifié')
+      end
     end
 
     it('requires :number to be a number') do
       new_table = Table.new
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:number]).to include('is not a number')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('is not a number')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('doit être un chiffre')
+      end
     end
 
     it('requires :number to be an integer') do
       new_table = Table.new(number: 3.3)
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:number]).to include('must be an integer')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('must be an integer')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('doit être un nombre entier')
+      end
     end
 
     it('requires :number to be greater than 0') do
       new_table = Table.new(number: 0)
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:number]).to include('must be greater than 0')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('must be greater than 0')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('doit être supérieur à 0')
+      end
     end
 
     it('requires :number to be unique per lottery') do
@@ -73,25 +109,61 @@ RSpec.describe(Table, type: :model) do
         capacity: 5,
       )
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:number]).to include('has already been taken')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('has already been taken')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:number]).to include('a déjà été assigné')
+      end
     end
 
     it('requires :capacity to be a capacity') do
       new_table = Table.new
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:capacity]).to include('is not a number')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('is not a number')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('doit être un chiffre')
+      end
     end
 
     it('requires :capacity to be an integer') do
       new_table = Table.new(capacity: 3.3)
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:capacity]).to include('must be an integer')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('must be an integer')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('doit être un nombre entier')
+      end
     end
 
     it('requires :capacity to be greater than 0') do
       new_table = Table.new(capacity: 0)
       expect(new_table).not_to be_valid
-      expect(new_table.errors[:capacity]).to include('must be greater than 0')
+
+      with_locale(:en) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('must be greater than 0')
+      end
+
+      with_locale(:fr) do
+        new_table.valid?
+        expect(new_table.errors[:capacity]).to include('doit être supérieur à 0')
+      end
     end
   end
 
