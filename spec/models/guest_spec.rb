@@ -23,7 +23,16 @@ RSpec.describe(Guest, type: :model) do
     it('requires :full_name to be present') do
       new_guest = Guest.new
       expect(new_guest).not_to be_valid
-      expect(new_guest.errors[:full_name]).to include("can't be blank")
+
+      with_locale(:en) do
+        new_guest.valid?
+        expect(new_guest.errors[:full_name]).to include("can't be blank")
+      end
+
+      with_locale(:fr) do
+        new_guest.valid?
+        expect(new_guest.errors[:full_name]).to include('ne peut pas être vide')
+      end
     end
   end
 end
