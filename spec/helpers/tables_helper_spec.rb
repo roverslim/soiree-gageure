@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TablesHelper, type: :helper) do
-  include I18nSpecHelper
-
   describe('#table_column_name') do
     it('returns "Table" when the locale is :en') do
       with_locale(:en) do

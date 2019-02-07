@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TicketDrawsIndex, type: :model) do
-  include I18nSpecHelper
-
   describe('#prize_for_next_drawn_ticket?') do
     it('returns false when there is no prize amount on the next draw') do
       @lottery = double(drawable_tickets: nil, next_prize_amount: nil)

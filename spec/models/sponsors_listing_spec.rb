@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(SponsorListing, type: :model) do
-  include I18nSpecHelper
-
   let(:sponsor_listing) do
     SponsorListing.new
   end

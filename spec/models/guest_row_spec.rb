@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(GuestRow, type: :model) do
-  include I18nSpecHelper
-
   describe('#row_number') do
     it('returns the attribute it was initialized with') do
       @row_number = double

@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(LastDrawnTicket, type: :model) do
-  include I18nSpecHelper
-
   describe('#guest_name') do
     it('delegates to ticket#guest_name') do
       @ticket = double(guest_name: 'foo')

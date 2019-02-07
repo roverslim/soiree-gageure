@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(PrizesHelper, type: :helper) do
-  include I18nSpecHelper
-
   let(:lottery) do
     Lottery.create!(event_date: Time.zone.today)
   end

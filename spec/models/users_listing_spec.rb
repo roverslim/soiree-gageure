@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(UsersListing, type: :model) do
-  include I18nSpecHelper
-
   let(:users_listing) do
     UsersListing.new
   end

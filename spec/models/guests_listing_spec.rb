@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(GuestsListing, type: :model) do
-  include I18nSpecHelper
-
   let(:guests_listing) do
     GuestsListing.new
   end

@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(ResultsIndex, type: :model) do
-  include I18nSpecHelper
-
   describe('#lottery_id') do
     it('delegates to lottery#id') do
       @lottery = double(id: 123)

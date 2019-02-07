@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TicketRegistrationsIndex, type: :model) do
-  include I18nSpecHelper
-
   describe('#number_filter') do
     it('returns the number filter') do
       @number_filter = double

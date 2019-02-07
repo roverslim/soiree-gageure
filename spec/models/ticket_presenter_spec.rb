@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TicketPresenter, type: :model) do
-  include I18nSpecHelper
-
   let(:seller) do
     Seller.create!(full_name: 'Gonzo')
   end

@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TicketsHelper, type: :helper) do
-  include I18nSpecHelper
-
   describe('#ticket_number_column_name') do
     it('returns "Number" when the locale is :en') do
       with_locale(:en) do
