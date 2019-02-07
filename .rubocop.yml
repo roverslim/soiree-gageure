@@ -9,6 +9,8 @@ Layout/EndAlignment:
 Layout/CaseIndentation:
   EnforcedStyle: 'end'
   IndentOneStep: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
