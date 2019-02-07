@@ -22,30 +22,26 @@ RSpec.describe(PrizesHelper, type: :helper) do
       expect(display_draw_position(prize)).to eq('275')
     end
 
-    context('when locale is :en') do
-      it('returns "First announced" when prize#nth_before_last is nil') do
-        prize.nth_before_last = nil
+    it('returns "First announced" when prize#nth_before_last is nil') do
+      prize.nth_before_last = nil
+
+      with_locale(:en) do
         expect(display_draw_position(prize)).to eq('First announced')
       end
 
-      it('returns "Grand prize" when prize#nth_before_last is 0') do
-        prize.nth_before_last = 0
-        expect(display_draw_position(prize)).to eq('Grand prize')
+      with_locale(:fr) do
+        expect(display_draw_position(prize)).to eq('Premier annoncé')
       end
     end
 
-    context('when locale is :fr') do
-      around(:each) do |example|
-        with_locale(:fr) { example.run }
+    it('returns "Grand prize" when prize#nth_before_last is 0') do
+      prize.nth_before_last = 0
+
+      with_locale(:en) do
+        expect(display_draw_position(prize)).to eq('Grand prize')
       end
 
-      it('returns "Premier annoncé" when prize#nth_before_last is nil') do
-        prize.nth_before_last = nil
-        expect(display_draw_position(prize)).to eq('Premier annoncé')
-      end
-
-      it('returns "Dernier grand prix" when prize#nth_before_last is 0') do
-        prize.nth_before_last = 0
+      with_locale(:fr) do
         expect(display_draw_position(prize)).to eq('Dernier grand prix')
       end
     end
