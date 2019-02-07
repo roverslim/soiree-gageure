@@ -34,7 +34,7 @@ RSpec.describe(LotteriesHelper, type: :helper) do
 
       it("returns 'Réouvrir l'enregistrement' when lottery#locked == true") do
         with_locale(:fr) do
-          assert_equal( "Réouvrir l'enregistrement", lock_or_unlock(lottery))
+          assert_equal("Réouvrir l'enregistrement", lock_or_unlock(lottery))
         end
       end
     end

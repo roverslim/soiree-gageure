@@ -21,7 +21,7 @@ RSpec.describe(User, type: :model) do
 
       with_locale(:fr) do
         new_user.valid?
-        expect(new_user.errors[:email]).to include("ne peut pas être vide")
+        expect(new_user.errors[:email]).to include('ne peut pas être vide')
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe(User, type: :model) do
 
       with_locale(:fr) do
         new_user.valid?
-        expect(new_user.errors[:password]).to include("ne peut pas être vide")
+        expect(new_user.errors[:password]).to include('ne peut pas être vide')
       end
     end
 

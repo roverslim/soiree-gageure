@@ -2,7 +2,7 @@
 module FullNameFormatter
   extend self
 
-  TITLEIZE_REGEX = /\b(?<!['â<80><99>`])[a-z]/
+  TITLEIZE_REGEX = /\b(?<!['â<80><99>`])[a-z]/.freeze
   private_constant :TITLEIZE_REGEX
 
   def format(full_name)

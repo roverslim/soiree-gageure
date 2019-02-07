@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   prepend_view_path Rails.root.join('components', 'draw_bookkeeping', 'app', 'views')
 
   def self.default_url_options(options={})
-    options.merge({ locale: I18n.locale })
+    options.merge(locale: I18n.locale)
   end
 
   private

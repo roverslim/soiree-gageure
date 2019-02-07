@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(Ticket, type: :model) do
-
   let(:lottery) do
     Lottery.create!(event_date: Time.zone.today)
   end
