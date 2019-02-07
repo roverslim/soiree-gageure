@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe(TicketPdf, type: :model) do
-  include I18nSpecHelper
-
   let(:lottery) do
     Lottery.create!(event_date: Time.zone.today)
   end
@@ -36,12 +34,14 @@ RSpec.describe(TicketPdf, type: :model) do
   end
 
   context('#filename') do
-    it('returns "ticket_6.pdf" when the ticket#number == 6') do
-      ticket.number = 6
-      assert_equal(
-        'ticket_6.pdf',
-        ticket_pdf.filename,
-      )
+    it('returns "ticket_6.pdf" when the ticket#number == 6 and I18n.locale == :en') do
+      with_locale(:en) do
+        ticket.number = 6
+        assert_equal(
+          'ticket_6.pdf',
+          ticket_pdf.filename,
+        )
+      end
     end
 
     it('returns "billet_6.pdf" when the ticket#number == 6 and I18n.locale == :fr') do
