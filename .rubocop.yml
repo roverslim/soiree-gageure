@@ -22,11 +22,7 @@ Lint/RequireParentheses:
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
-  ExcludedMethods:
-    - 'context' # rspec context block
-    - 'describe' # rspec describe block
-    - 'before' # rspec before block
-    - 'draw' # Rails.application.routes.draw
+  Enabled: false
 Metrics/LineLength:
   Max: 120
   IgnoredPatterns:
