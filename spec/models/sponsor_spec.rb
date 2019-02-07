@@ -23,7 +23,16 @@ RSpec.describe(Sponsor, type: :model) do
     it('requires :full_name to be present') do
       new_sponsor = Sponsor.new
       expect(new_sponsor).not_to be_valid
-      expect(new_sponsor.errors[:full_name]).to include("can't be blank")
+
+      with_locale(:en) do
+        new_sponsor.valid?
+        expect(new_sponsor.errors[:full_name]).to include("can't be blank")
+      end
+
+      with_locale(:fr) do
+        new_sponsor.valid?
+        expect(new_sponsor.errors[:full_name]).to include('ne peut pas être vide')
+      end
     end
   end
 end
