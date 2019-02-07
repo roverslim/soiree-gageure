@@ -15,6 +15,8 @@ Layout/EmptyLineAfterMagicComment:
   Enabled: false
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: 'indented'
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: false
 Lint/RequireParentheses:
   Enabled: true
 Metrics/AbcSize:
