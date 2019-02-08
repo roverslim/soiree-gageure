@@ -27,6 +27,37 @@ RSpec.describe(TicketsController, type: :controller) do
     )
   end
 
+  shared_examples('preview ticket') do
+    let(:ticket_number) { 13 }
+    let(:get_show) do
+      get(:show, params: { locale: I18n.locale, lottery_id: 3, ticket_number: ticket_number })
+    end
+
+    before(:each) do
+      expect(Lottery).to(receive(:find).with('3').and_return(lottery))
+    end
+
+    context('when no ticket bears the requested ticket number') do
+      it('to raise an exception') do
+        expect { get_show }.to(raise_exception(ActionController::RoutingError, 'Not Found'))
+      end
+    end
+
+    context('when a ticket corresponds to the requested ticket number') do
+      before(:each) { create_ticket(number: ticket_number) }
+
+      it('responds an http :success status') do
+        get_show
+        expect(response).to have_http_status(:success)
+      end
+
+      it('renders "show"') do
+        get_show
+        expect(response).to render_template('show')
+      end
+    end
+  end
+
   context('When the user is logged out') do
     describe('GET #index') do
       it('redirects to the user log in') do
@@ -61,11 +92,7 @@ RSpec.describe(TicketsController, type: :controller) do
     end
 
     describe('GET #show') do
-      it('raises a "No route matches" error') do
-        expect do
-          get(:show, params: { locale: I18n.locale, lottery_id: lottery.id, id: ticket.id })
-        end.to raise_error(ActionController::UrlGenerationError, /No route matches/)
-      end
+      it_behaves_like 'preview ticket'
     end
 
     describe('GET #edit') do
@@ -309,11 +336,7 @@ RSpec.describe(TicketsController, type: :controller) do
     end
 
     describe('GET #show') do
-      it('raises a "No route matches" error') do
-        expect do
-          get(:show, params: { locale: I18n.locale, lottery_id: lottery.id, id: ticket.id })
-        end.to raise_error(ActionController::UrlGenerationError, /No route matches/)
-      end
+      it_behaves_like 'preview ticket'
     end
 
     describe('GET #edit') do

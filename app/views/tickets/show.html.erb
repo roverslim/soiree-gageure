@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= t('column_names.number') %>
+  </div>
+  <div class="col-md-9">
+    <%= @ticket.number %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <%= t('column_names.guest.full_name') %>
+  </div>
+  <div class="col-md-9">
+    <%= @ticket.guest_name %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <%= t('column_names.sponsor.full_name') %>
+  </div>
+  <div class="col-md-9">
+    <%= @ticket.sponsor_name %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <%= t('column_names.ticket.state') %>
+  </div>
+  <div class="col-md-9">
+    <%= @ticket.state %>
+  </div>
+</div>

@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       get('guest_names', to: 'guests#index')
       get('sponsor_names', to: 'sponsors#index')
     end
+
+    get '/preview/2019/:ticket_number' => 'tickets#show', lottery_id: 3
   end
 
   get '/:locale' => 'lotteries#index', locale: /en|fr/

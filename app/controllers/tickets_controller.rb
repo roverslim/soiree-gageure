@@ -5,6 +5,7 @@ class TicketsController < ApplicationController
   expose :ticket, scope: -> { lottery.tickets }
 
   before_action :assign_lottery_instance_var
+  skip_before_action :authenticate_user!, only: %i(show)
 
   def index
     @ticket_listing = TicketListing.new(
@@ -29,6 +30,13 @@ class TicketsController < ApplicationController
     return render(:new) if @ticket.errors.any?
     @ticket.save!
     redirect_to(lottery_tickets_path(lottery))
+  end
+
+  def show
+    ticket = lottery.tickets.find_by(number: params[:ticket_number])
+    raise(ActionController::RoutingError, 'Not Found') unless ticket
+
+    @ticket = TicketPresenter.new(ticket: ticket, row_number: nil)
   end
 
   def edit
