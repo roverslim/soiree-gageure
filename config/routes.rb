@@ -36,9 +36,8 @@ Rails.application.routes.draw do
 
     get '/preview/2019/:ticket_number' => 'tickets#show', lottery_id: 3
   end
+  mount(ActionCable.server => '/cable')
 
   get '/:locale' => 'lotteries#index', locale: /en|fr/
   root 'lotteries#index'
-
-  mount(ActionCable.server => '/cable')
 end
