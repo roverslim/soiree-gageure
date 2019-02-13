@@ -1,32 +1,10 @@
 <div class="row">
-  <div class="col-xs-3">
-    <%= t('column_names.number') %>
+  <div class="jumbotron col-xs-3">
+    <h1 class="display-4"><%= @ticket.number %></h1>
+    <p class="lead"><%= t('column_names.number') %></p>
   </div>
-  <div class="col-xs-9">
-    <%= @ticket.number %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-3">
-    <%= t('column_names.guest.full_name') %>
-  </div>
-  <div class="col-xs-9">
-    <%= @ticket.guest_name %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-3">
-    <%= t('column_names.sponsor.full_name') %>
-  </div>
-  <div class="col-xs-9">
-    <%= @ticket.sponsor_name %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-3">
-    <%= t('column_names.ticket.state') %>
-  </div>
-  <div class="col-xs-9">
-    <%= @ticket.state %>
+  <div class="jumbotron col-xs-9">
+    <h1 class="display-4"><%= @ticket.state %></h1>
+    <p class="lead"><%= t('column_names.ticket.state') %></p>
   </div>
 </div>
