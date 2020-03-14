@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
 
     get '/preview/2019/:ticket_number' => 'tickets#show', lottery_id: 3
+    get '/preview/2020/:ticket_number' => 'tickets#show', lottery_id: 4
   end
   mount(ActionCable.server => '/cable')
 
